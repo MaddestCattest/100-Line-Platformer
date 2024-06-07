@@ -1,7 +1,8 @@
 Source code of 100 Line Platformer
 
-Server.lua is a Server Script in game.ServerScriptService
-Client.lua is a LocalScript in game.Players.StarterPlayerScripts
+📁 File Locations
+1. Server.lua is a Server Script in game.ServerScriptService
+2. Client.lua is a LocalScript in game.Players.StarterPlayerScripts
 
 Game: https://www.roblox.com/games/17681303053/100-Line-Platformer
 
