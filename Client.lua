@@ -96,7 +96,7 @@ end)
 
 -- Stage teleportation [5]
 game:GetService("TextChatService").SendingMessage:Connect(function(msg:TextChatMessage)
-	if string.find(msg.Text, ":") and tonumber(string.sub(msg.Text, 2)) <= tonumber(game:GetService("Players").LocalPlayer:GetAttribute("HighestStage")) and game:GetService("Workspace").Stages:FindFirstChild(string.sub(msg.Text, 2)) then
+	if string.find(msg.Text, ":") and tonumber(string.sub(msg.Text, 2)) and tonumber(string.sub(msg.Text, 2)) <= tonumber(game:GetService("Players").LocalPlayer:GetAttribute("HighestStage")) and game:GetService("Workspace").Stages:FindFirstChild(string.sub(msg.Text, 2)) then
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Stages[string.sub(msg.Text, 2)].Checkpoint.Hitbox.CFrame
 	end
 end)
