@@ -2,7 +2,7 @@
 game:GetService("ReplicatedStorage").Remotes.NewCheckpoint.OnServerEvent:Connect(function(player:Player, stage:string)
 	player:SetAttribute("Stage", stage)
 	player:SetAttribute("HighestStage", (tonumber(stage) > tonumber(player:GetAttribute("HighestStage")) and stage) or player:GetAttribute("HighestStage"))
-	game:GetService("BadgeService"):AwardBadge(player.UserId, (tonumber(stage) >= 1 and 2966836762785711) or (tonumber(stage) >= 11 and 457901430483912) or (tonumber(stage) >= 21 and 2642762497958596) or (tonumber(stage) >= 31 and 4316930873594399) or (tonumber(stage) >= 41 and 4411909788945776) or (tonumber(stage) >= 51 and 1111916438675446))
+	game:GetService("BadgeService"):AwardBadge(player.UserId, (tonumber(stage) >= 51 and 1111916438675446) or (tonumber(stage) >= 41 and 4411909788945776) or (tonumber(stage) >= 31 and 4316930873594399) or (tonumber(stage) >= 21 and 2642762497958596) or (tonumber(stage) >= 11 and 457901430483912) or (tonumber(stage) >= 1 and 2966836762785711))
 end)
 
 -- Load Data [5]
