@@ -80,7 +80,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Dash.Enabled = true
 		task.wait(0.2)
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Dash.Enabled = false
-	elseif not gameProcessed and input.KeyCode == Enum.KeyCode.A or input.KeyCode == Enum.KeyCode.D then
+	elseif not gameProcessed and (input.KeyCode == Enum.KeyCode.A or input.KeyCode == Enum.KeyCode.D) then
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.AlignOrientation.CFrame = (input.KeyCode == Enum.KeyCode.A and CFrame.Angles(0, math.rad(180), 0)) or (input.KeyCode == Enum.KeyCode.D and CFrame.new()) or game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.AlignOrientation.CFrame
 	end
 end)
