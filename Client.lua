@@ -11,16 +11,19 @@ for _, obj:BasePart in game:GetService("CollectionService"):GetTagged("Checkpoin
 		if obj.Parent.Parent.Name ~= game:GetService("Players").LocalPlayer.PlayerGui.Overlay.Stage.Text then
 			script.Checkpoint:Play()
 			game:GetService("Players").LocalPlayer.PlayerGui.Overlay.Stage.Text = obj.Parent.Parent.Name
-			game:GetService("ReplicatedStorage").Remotes.NewCheckpoint:FireServer(obj.Parent.Parent.Name)
+			game:GetService("ReplicatedStorage").Remotes.DataTransfer:FireServer(obj.Parent.Parent.Name, game:GetService("Players").LocalPlayer.PlayerGui.Overlay.DeathCount.Deaths.Text)
 		end
 	end)
 end
 
--- Teleports [6]
+-- Teleports [9]
 for _, obj:BasePart in game:GetService("CollectionService"):GetTagged("Teleport") do
 	obj.Touched:Connect(function(hit:BasePart)
 		script[(obj.Parent.Name == "Teleport" and "Teleport") or "Death"]:Play()
 		game:GetService("Players").LocalPlayer.Character.PrimaryPart.CFrame = (obj:FindFirstChild("Destination") and obj.Destination.Value.CFrame) or game:GetService("Workspace").Stages[game:GetService("Players").LocalPlayer.PlayerGui.Overlay.Stage.Text or "001"].Checkpoint.Hitbox.CFrame
+		game:GetService("Players").LocalPlayer.PlayerGui.Overlay.DeathCount.Deaths.Text += ((obj.Parent.Name == "Teleport" or time() - script:GetAttribute("DeathDebounce") <= 0.05) and 0) or 1
+		script:SetAttribute("DeathDebounce", ((obj.Parent.Name == "Teleport" or time() - script:GetAttribute("DeathDebounce") <= .05) and script:GetAttribute("DeathDebounce")) or time())
+		game:GetService("ReplicatedStorage").Remotes.DataTransfer:FireServer(game:GetService("Players").LocalPlayer.PlayerGui.Overlay.Stage.Text, game:GetService("Players").LocalPlayer.PlayerGui.Overlay.DeathCount.Deaths.Text)
 	end)
 end
 
@@ -43,14 +46,17 @@ for _, obj:BasePart in game:GetService("CollectionService"):GetTagged("Recharge"
 end
 
 -- Spawn player (also sets stage) [1]
-(game:GetService("Players").LocalPlayer.Character or game:GetService("Players").LocalPlayer.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace").Stages[(game:GetService("Players").LocalPlayer:GetAttribute("Stage") ~= nil or game:GetService("Players").LocalPlayer:GetAttributeChangedSignal("Stage"):Wait() == nil) and game:GetService("Players").LocalPlayer:GetAttribute("Stage")].Checkpoint.Hitbox.CFrame
+(game:GetService("Players").LocalPlayer.Character or game:GetService("Players").LocalPlayer.CharacterAdded:Wait()):WaitForChild("HumanoidRootPart").CFrame = game:GetService("Workspace").Stages[(game:GetService("Players").LocalPlayer:GetAttribute("Data") ~= nil or game:GetService("Players").LocalPlayer:GetAttributeChangedSignal("Data"):Wait() == nil) and string.split(game:GetService("Players").LocalPlayer:GetAttribute("Data"), "|")[1] ].Checkpoint.Hitbox.CFrame
+
+-- Initialize Death Count [1]
+game:GetService("Players").LocalPlayer.PlayerGui.Overlay.DeathCount.Deaths.Text = string.split(game:GetService("Players").LocalPlayer:GetAttribute("Data"), "|")[3] or 0
 
 -- Set Player's CollisionGroup [3] -- Part 2 of ensuring client-sided objects are unaffected by others
 for _, playerPart in {"Head", "Hitbox", "HumanoidRootPart", "Left Arm", "Left Leg", "Right Arm", "Right Leg", "Torso"} do
 	game:GetService("Players").LocalPlayer.Character:WaitForChild(playerPart).CollisionGroup = (playerPart == "Hitbox" and "PlayerHitbox") or "LocalPlayer"
 end
 
--- Camera follow & Player transparency [6]
+-- Camera follow, Player transparency [6]
 game:GetService("RunService").RenderStepped:Connect(function()
 	game:GetService("Workspace").CurrentCamera.CFrame = CFrame.new(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(0, 2, 25), game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position)
 	for _, plrPart in game:GetService("CollectionService"):GetTagged("PlayerPart") do
@@ -85,7 +91,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
 	end
 end)
 game:GetService("UserInputService").InputEnded:Connect(function(input, gameProcessed)
-	if not gameProcessed and input.KeyCode == Enum.KeyCode.A or input.KeyCode == Enum.KeyCode.D then
+	if not gameProcessed and (input.KeyCode == Enum.KeyCode.A or input.KeyCode == Enum.KeyCode.D) then
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.AlignOrientation.CFrame = (game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.A) and CFrame.Angles(0, math.rad(180), 0)) or (game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.D) and CFrame.new()) or game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.AlignOrientation.CFrame
 	end
 end)
@@ -96,7 +102,7 @@ end)
 
 -- Stage teleportation [5]
 game:GetService("TextChatService").SendingMessage:Connect(function(msg:TextChatMessage)
-	if string.find(msg.Text, ":") and tonumber(string.sub(msg.Text, 2)) and tonumber(string.sub(msg.Text, 2)) <= tonumber(game:GetService("Players").LocalPlayer:GetAttribute("HighestStage")) and game:GetService("Workspace").Stages:FindFirstChild(string.sub(msg.Text, 2)) then
+	if string.find(msg.Text, ":") and tonumber(string.sub(msg.Text, 2)) and tonumber(string.sub(msg.Text, 2)) <= tonumber( string.split(game:GetService("Players").LocalPlayer:GetAttribute("Data"), "|")[2] ) and game:GetService("Workspace").Stages:FindFirstChild(string.sub(msg.Text, 2)) then
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Stages[string.sub(msg.Text, 2)].Checkpoint.Hitbox.CFrame
 	end
 end)
