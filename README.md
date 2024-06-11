@@ -6,7 +6,7 @@
 
 **UpSkill Community Server** | https://discord.gg/upskill
 
-**Total Lines used** | 98
+**Total Lines used** | 100
 
 **📁 File Locations**
 1. Server.lua is a Server-Side Script in game.ServerScriptService
