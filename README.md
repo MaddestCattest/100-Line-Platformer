@@ -1,7 +1,10 @@
 ## Source Code of 100 Line Platformer
 
 **Game** | https://www.roblox.com/games/17681303053/100-Line-Platformer
-**Discord Server** | https://discord.com/invite/N7x6bT3XAB
+
+**100LP Server** | https://discord.gg/N7x6bT3XAB
+
+**UpSkill Community Server** | https://discord.gg/upskill
 
 **Total Lines used** | 98
 
