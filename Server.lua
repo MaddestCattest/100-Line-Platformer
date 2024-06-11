@@ -7,7 +7,7 @@ end)
 -- Load Data [4]
 game:GetService("Players").PlayerAdded:Connect(function(player:Player)
 	local data = game:GetService("DataStoreService"):GetDataStore("StageProgress"):GetAsync(player.UserId)
-	player:SetAttribute("Data", (data ~= nil and string.format("%s|%s|%s", data[1] or "001", data[2] or "001", data[3] or "0")) or nil)
+	player:SetAttribute("Data", (data ~= nil and string.format("%s|%s|%s", data[1] or "001", data[2] or "001", data[3] or "0")) or "001|001|0")
 end)
 
 -- Save Data [5]
