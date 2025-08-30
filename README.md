@@ -1,12 +1,13 @@
 ## Source Code of 100 Line Platformer
 
 **Game** | https://www.roblox.com/games/17681303053/100-Line-Platformer
+**Place File** | https://github.com/MaddestCattest/100-Line-Platformer/releases/tag/Release
 
 **100LP Server** | https://discord.gg/N7x6bT3XAB
 
 **UpSkill Community Server** | https://discord.gg/upskill
 
-**Place File** | https://github.com/MaddestCattest/100-Line-Platformer/releases/tag/Release
+**Verification Video** | https://youtu.be/I3TM77MBpk4?si=k8N7N8UL6jQ0KR6O
 
 **Total Lines used** | 100
 
